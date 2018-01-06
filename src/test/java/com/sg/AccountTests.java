@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @DisplayName("An Account")
 class AccountTests {
@@ -89,28 +89,62 @@ class AccountTests {
             account.credit(entry1);
             account.debit(entry2);
             account.credit(entry3);
-            account.credit(entry4);
+            account.debit(entry4);
         }
 
         @Test
         @DisplayName("the balance should equal the accounting sum of the entries")
         void shouldEqualTheEntry() {
-            assertEquals(BigDecimal.valueOf(3.2), account.getBalance());
+            assertEquals(BigDecimal.valueOf(1.2), account.getBalance());
         }
 
         @Test
-        @DisplayName("the account should return null for counterparty search misses")
+        @DisplayName("search miss for counterparty's entries should return no results")
         void shouldReturnEmptyForEntryMatchMisses() {
-            assertTrue(account.findByCounterPartyId("no-entries-for-this-counterparty").isEmpty());
+            assertTrue(account.findByCounterPartyId("no-entries-for-this-counterparty").count() == 0);
         }
 
         @Test
-        @DisplayName("the account should return all matches for counterparty search")
+        @DisplayName("search miss for counterparty's credit entries should return no results")
+        void shouldReturnEmptyForCreditEntryMatchMisses() {
+            assertTrue(account.findCreditsByCounterPartyId("no-entries-for-this-counterparty").count() == 0);
+        }
+
+        @Test
+        @DisplayName("search miss for counterparty's debit entries should return no results")
+        void shouldReturnEmptyForDebitEntryMatchMisses() {
+            assertTrue(account.findDebitsByCounterPartyId("no-entries-for-this-counterparty").count() == 0);
+        }
+
+        @Test
+        @DisplayName("should be able to search for combined entries for a counterparty")
         void shouldReturnMatchesForEntryMatchHits() {
-            List<Entry> matches = account.findByCounterPartyId(entry3.getCounterparty());
-            assertAll("found entries",
+            // this will return an unsorted list of debits and credits
+            List<Entry> matches = account.findByCounterPartyId(entry3.getCounterparty())
+                                         .collect(Collectors.toList());
+            assertAll("found credit/debit entries",
                         () -> assertTrue(matches.size() == 2),
                         () -> assertTrue(matches.contains(entry3)),
+                        () -> assertTrue(matches.contains(entry4)));
+        }
+
+        @Test
+        @DisplayName("should be able to search for credit entries by counterparty")
+        void shouldReturnMatchesForCreditEntryMatchHits() {
+            List<Entry> matches = account.findCreditsByCounterPartyId(entry3.getCounterparty())
+                                           .collect(Collectors.toList());
+            assertAll("found credit entries",
+                    () -> assertTrue(matches.size() == 1),
+                    () -> assertTrue(matches.contains(entry3)));
+        }
+
+        @Test
+        @DisplayName("should be able to search for debit entries by counterparty")
+        void shouldReturnMatchesForDebitEntryMatchHits() {
+            List<Entry> matches = account.findDebitsByCounterPartyId(entry4.getCounterparty())
+                                         .collect(Collectors.toList());
+            assertAll("found debit entries",
+                        () -> assertTrue(matches.size() == 1),
                         () -> assertTrue(matches.contains(entry4)));
         }
     }
