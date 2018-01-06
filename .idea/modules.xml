@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BankAccount.iml" filepath="$PROJECT_DIR$/BankAccount.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BankAccount_main.iml" filepath="$PROJECT_DIR$/.idea/modules/BankAccount_main.iml" group="BankAccount" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BankAccount_test.iml" filepath="$PROJECT_DIR$/.idea/modules/BankAccount_test.iml" group="BankAccount" />
+    </modules>
+  </component>
+</project>

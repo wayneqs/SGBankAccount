@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="bank-account_main" target="1.8" />
-      <module name="bank-account_test" target="1.8" />
+      <module name="BankAccount_main" target="1.8" />
+      <module name="BankAccount_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
