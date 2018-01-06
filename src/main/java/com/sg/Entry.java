@@ -3,14 +3,23 @@ package com.sg;
 import java.math.BigDecimal;
 
 /**
- * This class encapsulates an accounting charge.
+ * This immutable class encapsulates an accounting charge.
  */
 public class Entry {
+    private final BigDecimal amount;
+    private final String counterpartyId;
+
+    public Entry(BigDecimal amount, String counterpartyId) {
+
+        this.amount = amount;
+        this.counterpartyId = counterpartyId;
+    }
+
     public BigDecimal getAmount() {
-        return BigDecimal.ZERO;
+        return amount;
     }
 
     public String getCounterparty() {
-        return null;
+        return counterpartyId;
     }
 }
