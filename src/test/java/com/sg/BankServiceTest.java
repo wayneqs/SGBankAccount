@@ -23,7 +23,7 @@ class BankServiceTest {
     }
 
     @Test
-    @DisplayName("should fail to transfer amount when payee account not found")
+    @DisplayName("should fail to transfer amount when payee and payer accounts not found")
     void shouldFailTransferWhenPayeeAndPayerAccountNotFound() {
         assertThrows(RuntimeException.class,
                 () -> bank.transfer(BigDecimal.ONE, "payee-not-found", "payer-not-found"));

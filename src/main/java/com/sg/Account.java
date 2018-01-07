@@ -43,7 +43,7 @@ public class Account {
     /**
      * Find all entries for a given counterparty. This could be a long list so is returned in a {@link Stream}.
      * @param counterpartyId the counterparty identifier to search for
-     * @return the result of the search as a{@link Stream}
+     * @return the result of the search as a {@link Stream}
      * @see Stream the result
      * @see Entry
      */
@@ -55,7 +55,7 @@ public class Account {
     /**
      * Find credit entries for a given counterparty. This could be a long list so is returned in a {@link Stream}.
      * @param counterpartyId the counterparty identifier to search for
-     * @return the result of the search as a{@link Stream}
+     * @return the result of the search as a {@link Stream}
      * @see Stream the result
      * @see Entry
      */
@@ -68,7 +68,7 @@ public class Account {
     /**
      * Find debit entries for a given counterparty. This could be a long list so is returned in a {@link Stream}.
      * @param counterpartyId the counterparty identifier to search for
-     * @return the result of the search as a{@link Stream}
+     * @return the result of the search as a {@link Stream}
      * @see Stream the result
      * @see Entry
      */

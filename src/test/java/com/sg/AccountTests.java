@@ -16,22 +16,22 @@ import static org.mockito.Mockito.when;
 @DisplayName("An Account")
 class AccountTests {
 
-    private Account account = new Account("Harry");
+    private Account account = new Account("accountId");
 
     @Nested
     @DisplayName("when new")
     class WhenNew {
 
         @Test
-        @DisplayName("the account should have a zero balance")
+        @DisplayName("should have a zero balance")
         void shouldInitialiseWithZeroBalance() {
             assertEquals(BigDecimal.ZERO, account.getBalance());
         }
 
         @Test
-        @DisplayName("the account should have an identifier")
+        @DisplayName("should have an identifier")
         void shouldInitialiseWithIdentifier() {
-            assertEquals("Harry", account.getId());
+            assertEquals("accountId", account.getId());
         }
     }
 
@@ -105,31 +105,31 @@ class AccountTests {
         }
 
         @Test
-        @DisplayName("the balance should equal the accounting sum of the entries")
+        @DisplayName("will report a balance equal to the sum of its entries")
         void shouldEqualTheEntry() {
             assertEquals(BigDecimal.valueOf(1.2), account.getBalance());
         }
 
         @Test
-        @DisplayName("search miss for counterparty's entries should return no results")
+        @DisplayName("should not find credit/debit entries for unknown counterparty")
         void shouldReturnEmptyForEntryMatchMisses() {
             assertTrue(account.findByCounterPartyId("no-entries-for-this-counterparty").count() == 0);
         }
 
         @Test
-        @DisplayName("search miss for counterparty's credit entries should return no results")
+        @DisplayName("should not find credit entries for unknown counterparty")
         void shouldReturnEmptyForCreditEntryMatchMisses() {
             assertTrue(account.findCreditsByCounterPartyId("no-entries-for-this-counterparty").count() == 0);
         }
 
         @Test
-        @DisplayName("search miss for counterparty's debit entries should return no results")
+        @DisplayName("should not find debit entries for unknown counterparty")
         void shouldReturnEmptyForDebitEntryMatchMisses() {
             assertTrue(account.findDebitsByCounterPartyId("no-entries-for-this-counterparty").count() == 0);
         }
 
         @Test
-        @DisplayName("should be able to search for combined entries for a counterparty")
+        @DisplayName("should find credit/debit entries by counterparty")
         void shouldReturnMatchesForEntryMatchHits() {
             // this will return an unsorted list of debits and credits
             List<Entry> matches = account.findByCounterPartyId(entry3.getCounterparty())
@@ -141,7 +141,7 @@ class AccountTests {
         }
 
         @Test
-        @DisplayName("should be able to search for credit entries by counterparty")
+        @DisplayName("should find credit entries by counterparty")
         void shouldReturnMatchesForCreditEntryMatchHits() {
             List<Entry> matches = account.findCreditsByCounterPartyId(entry3.getCounterparty())
                                            .collect(Collectors.toList());
@@ -151,7 +151,7 @@ class AccountTests {
         }
 
         @Test
-        @DisplayName("should be able to search for debit entries by counterparty")
+        @DisplayName("should find debit entries by counterparty")
         void shouldReturnMatchesForDebitEntryMatchHits() {
             List<Entry> matches = account.findDebitsByCounterPartyId(entry4.getCounterparty())
                                          .collect(Collectors.toList());

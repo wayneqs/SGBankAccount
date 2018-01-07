@@ -39,6 +39,10 @@ public class Transaction {
         return new Transaction(timestamp, amount, payee.getId(), payer.getId());
     }
 
+    /**
+     * The timestamp of the transaction
+     * @return the timestamp
+     */
     public Instant getTimestamp() {
         return timestamp;
     }
