@@ -28,11 +28,19 @@ public class Account {
 
     /**
      * The current balance of the account
-     * @return The balance
+     * @return the balance
      * @see BigDecimal
      */
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    /**
+     * The account identifier
+     * @return the identifier
+     */
+    public String getId() {
+        return id;
     }
 
     /**

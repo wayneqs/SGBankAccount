@@ -27,6 +27,12 @@ class AccountTests {
         void shouldInitialiseWithZeroBalance() {
             assertEquals(BigDecimal.ZERO, account.getBalance());
         }
+
+        @Test
+        @DisplayName("the account should have an identifier")
+        void shouldInitialiseWithIdentifier() {
+            assertEquals("Harry", account.getId());
+        }
     }
 
     @Nested
