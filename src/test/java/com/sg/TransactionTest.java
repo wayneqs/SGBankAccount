@@ -38,7 +38,7 @@ class TransactionTest {
     }
 
     @Test
-    @DisplayName("will create an immutable Transaction containing details of the transfer")
+    @DisplayName("will create an immutable record of the transfer")
     void createsATransaction() {
         assertAll("transaction",
                 () -> assertTrue(transaction.getAmount().equals(BigDecimal.TEN)),
