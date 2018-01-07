@@ -9,9 +9,9 @@ import java.time.Instant;
 public class Entry {
     private final BigDecimal amount;
     private final String counterpartyId;
-    private Instant timestamp;
+    private final Instant timestamp;
 
-    public Entry(BigDecimal amount, String counterpartyId, Instant timestamp) {
+    Entry(BigDecimal amount, String counterpartyId, Instant timestamp) {
 
         this.amount = amount;
         this.counterpartyId = counterpartyId;

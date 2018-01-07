@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class BankService {
 
-    private List<Account> accountRepository = new ArrayList<>();
-    private List<Transaction> transactionLog = new ArrayList<>();
+    private final List<Account> accountRepository = new ArrayList<>();
+    private final List<Transaction> transactionLog = new ArrayList<>();
 
     /**
      * Transfers an amount between two accounts
@@ -48,7 +48,7 @@ public class BankService {
         return account;
     }
 
-    Account findAccount(String identifier) {
+    private Account findAccount(String identifier) {
         return accountRepository.stream()
                 .filter(account -> account.getId().equals(identifier))
                 .findFirst().orElse(null);

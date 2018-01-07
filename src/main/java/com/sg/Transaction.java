@@ -8,7 +8,7 @@ import java.time.Instant;
  */
 public class Transaction {
 
-    private Instant timestamp;
+    private final Instant timestamp;
     private final BigDecimal amount;
     private final String payeeId;
     private final String payerId;
@@ -45,7 +45,7 @@ public class Transaction {
 
     /**
      * The amount that was transferred
-     * @return
+     * @return the amount
      * @see BigDecimal
      */
     public BigDecimal getAmount() {
@@ -54,7 +54,7 @@ public class Transaction {
 
     /**
      * The recipient account's identifier of the transferred funds
-     * @return
+     * @return the recipient account's identifier
      */
     public String getPayeeId() {
         return payeeId;
@@ -62,7 +62,7 @@ public class Transaction {
 
     /**
      * The provider account's identifier of the transferred funds
-     * @return
+     * @return the provider account's identifier
      */
     public String getPayerId() {
         return payerId;

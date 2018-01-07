@@ -12,13 +12,13 @@ public class Account {
 
     private String id;
     private BigDecimal balance;
-    private List<Entry> entries = new ArrayList<>();
+    private final List<Entry> entries = new ArrayList<>();
 
     /**
      * Class constructor specifying metadata for the account.
      * @param id the id of the account
      */
-    public Account(String id) {
+    Account(String id) {
         this.id = id;
         this.balance = BigDecimal.ZERO;
     }
@@ -42,7 +42,7 @@ public class Account {
 
     /**
      * Find all entries for a given counterparty. This could be a long list so is returned in a {@link Stream}.
-     * @param counterpartyId
+     * @param counterpartyId the counterparty identifier to search for
      * @return the result of the search as a{@link Stream}
      * @see Stream the result
      * @see Entry
@@ -54,7 +54,7 @@ public class Account {
 
     /**
      * Find credit entries for a given counterparty. This could be a long list so is returned in a {@link Stream}.
-     * @param counterpartyId
+     * @param counterpartyId the counterparty identifier to search for
      * @return the result of the search as a{@link Stream}
      * @see Stream the result
      * @see Entry
@@ -67,7 +67,7 @@ public class Account {
 
     /**
      * Find debit entries for a given counterparty. This could be a long list so is returned in a {@link Stream}.
-     * @param counterpartyId
+     * @param counterpartyId the counterparty identifier to search for
      * @return the result of the search as a{@link Stream}
      * @see Stream the result
      * @see Entry
@@ -90,7 +90,7 @@ public class Account {
 
     /**
      * Checks if debits exceed credits
-     * @return
+     * @return flag indicating if negative
      */
     public boolean hasNegativeBalance() {
         return isNegative(this.getBalance());
@@ -98,17 +98,17 @@ public class Account {
 
     /**
      * Checks if credits exceed debits
-     * @return
+     * @return flag indicating if positive
      */
     public boolean hasPositiveBalance() {
         return isPositive(this.getBalance());
     }
 
     private boolean isNegative(BigDecimal value) {
-        return value.compareTo(BigDecimal.ZERO) == -1;
+        return value.compareTo(BigDecimal.ZERO) < 0;
     }
 
     private boolean isPositive(BigDecimal value) {
-        return value.compareTo(BigDecimal.ZERO) == 1;
+        return value.compareTo(BigDecimal.ZERO) > 0;
     }
 }

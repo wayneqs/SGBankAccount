@@ -18,10 +18,8 @@ class BankServiceTest {
     @BeforeEach
     void createTheBank() {
         bank = new BankService();
-        bank.createAccount("payee");
-        bank.createAccount("payer");
-        payer = bank.findAccount("payer");
-        payee = bank.findAccount("payee");
+        payer = bank.createAccount("payee");
+        payee = bank.createAccount("payer");
     }
 
     @Test
