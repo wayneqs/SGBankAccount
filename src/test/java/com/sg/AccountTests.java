@@ -36,8 +36,8 @@ class AccountTests {
     }
 
     @Nested
-    @DisplayName("after adding a credit entry")
-    class AfterAccountCredit {
+    @DisplayName("after adding an entry")
+    class AfterAccountEntry {
 
         Entry entry;
         BigDecimal amount = BigDecimal.valueOf(22.56);
@@ -46,34 +46,13 @@ class AccountTests {
         void addAnEntry() {
             entry = mock(Entry.class);
             when(entry.getAmount()).thenReturn(amount);
-            account.credit(entry);
+            account.addEntry(entry);
         }
 
         @Test
         @DisplayName("the balance should equal the amount of the entry")
         void shouldEqualTheEntry() {
             assertEquals(amount, account.getBalance());
-        }
-    }
-
-    @Nested
-    @DisplayName("after adding a debit entry")
-    class AfterAccountDebit {
-
-        Entry entry;
-        BigDecimal amount = BigDecimal.valueOf(22.56);
-
-        @BeforeEach
-        void addAnEntry() {
-            entry = mock(Entry.class);
-            when(entry.getAmount()).thenReturn(amount);
-            account.debit(entry);
-        }
-
-        @Test
-        @DisplayName("the balance should equal the negated amount of the entry")
-        void shouldEqualTheEntry() {
-            assertEquals(amount.negate(), account.getBalance());
         }
     }
 
@@ -89,13 +68,13 @@ class AccountTests {
         @BeforeEach
         void addSeveralEntries() {
             entry1 = createMockEntry("counterparty1", BigDecimal.valueOf(1.1));
-            entry2 = createMockEntry("counterparty2", BigDecimal.valueOf(2.2));
+            entry2 = createMockEntry("counterparty2", BigDecimal.valueOf(-2.2));
             entry3 = createMockEntry("counterparty3", BigDecimal.valueOf(3.3));
-            entry4 = createMockEntry("counterparty3", BigDecimal.valueOf(1));
-            account.credit(entry1);
-            account.debit(entry2);
-            account.credit(entry3);
-            account.debit(entry4);
+            entry4 = createMockEntry("counterparty3", BigDecimal.valueOf(-1));
+            account.addEntry(entry1);
+            account.addEntry(entry2);
+            account.addEntry(entry3);
+            account.addEntry(entry4);
         }
 
         @Test
