@@ -1,12 +1,9 @@
 package com.sg;
 
-import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
-import static java.util.stream.Stream.concat;
 
 /**
  * This class is responsible for maintaining the list of accounting entries.
@@ -65,7 +62,7 @@ public class Account {
     public Stream<Entry> findCreditsByCounterPartyId(String counterpartyId) {
         return findByCounterPartyId(counterpartyId)
                 // credits are positive
-                .filter(entry -> entry.getAmount().compareTo(BigDecimal.ZERO) == 1);
+                .filter(entry -> isPositive(entry.getAmount()));
     }
 
     /**
@@ -78,11 +75,40 @@ public class Account {
     public Stream<Entry> findDebitsByCounterPartyId(String counterpartyId) {
         return findByCounterPartyId(counterpartyId)
                 // debits are negative
-                .filter(entry -> entry.getAmount().compareTo(BigDecimal.ZERO) == -1);
+                .filter(entry -> isNegative(entry.getAmount()));
     }
 
+    /**
+     * Add an accounting entry to the account.
+     * @param entry the entry to add
+     * @see Entry
+     */
     public void addEntry(Entry entry) {
         this.balance = this.balance.add(entry.getAmount());
         this.entries.add(entry);
+    }
+
+    /**
+     * Checks if debits exceed credits
+     * @return
+     */
+    public boolean hasNegativeBalance() {
+        return isNegative(this.getBalance());
+    }
+
+    /**
+     * Checks if credits exceed debits
+     * @return
+     */
+    public boolean hasPositiveBalance() {
+        return isPositive(this.getBalance());
+    }
+
+    private boolean isNegative(BigDecimal value) {
+        return value.compareTo(BigDecimal.ZERO) == -1;
+    }
+
+    private boolean isPositive(BigDecimal value) {
+        return value.compareTo(BigDecimal.ZERO) == 1;
     }
 }

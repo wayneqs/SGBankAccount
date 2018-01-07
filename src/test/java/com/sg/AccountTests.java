@@ -36,8 +36,8 @@ class AccountTests {
     }
 
     @Nested
-    @DisplayName("after adding an entry")
-    class AfterAccountEntry {
+    @DisplayName("after adding a positive entry")
+    class AfterPositiveAccountEntry {
 
         Entry entry;
         BigDecimal amount = BigDecimal.valueOf(22.56);
@@ -52,7 +52,34 @@ class AccountTests {
         @Test
         @DisplayName("the balance should equal the amount of the entry")
         void shouldEqualTheEntry() {
-            assertEquals(amount, account.getBalance());
+            assertAll("account",
+                    () -> assertEquals(amount, account.getBalance()),
+                    () -> assertTrue(account.hasPositiveBalance()),
+                    () -> assertFalse(account.hasNegativeBalance()));
+        }
+    }
+
+    @Nested
+    @DisplayName("after adding a negative entry")
+    class AfterNegativeAccountEntry {
+
+        Entry entry;
+        BigDecimal amount = BigDecimal.valueOf(-22.56);
+
+        @BeforeEach
+        void addAnEntry() {
+            entry = mock(Entry.class);
+            when(entry.getAmount()).thenReturn(amount);
+            account.addEntry(entry);
+        }
+
+        @Test
+        @DisplayName("the balance should equal the amount of the entry")
+        void shouldEqualTheEntry() {
+            assertAll("account",
+                    () -> assertEquals(amount, account.getBalance()),
+                    () -> assertFalse(account.hasPositiveBalance()),
+                    () -> assertTrue(account.hasNegativeBalance()));
         }
     }
 
