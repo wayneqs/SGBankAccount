@@ -50,7 +50,7 @@ class AccountTests {
         }
 
         @Test
-        @DisplayName("the balance should equal the amount of the entry")
+        @DisplayName("will report a balance equal to the amount of the entry")
         void shouldEqualTheEntry() {
             assertAll("account",
                     () -> assertEquals(amount, account.getBalance()),
@@ -74,7 +74,7 @@ class AccountTests {
         }
 
         @Test
-        @DisplayName("the balance should equal the amount of the entry")
+        @DisplayName("will report a balance equal to the amount of the entry")
         void shouldEqualTheEntry() {
             assertAll("account",
                     () -> assertEquals(amount, account.getBalance()),
